@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
+import postRouter from "./post/post-router";
 
 const app = express();
 const router=express.Router();
@@ -16,7 +17,7 @@ const customLogger=(req,res,next)=>{
     next();
 }
 
-app.use('/api/v1',router);
+app.use('/api/post',postRouter);
 
 // Her to pass more than one middleware we can pass array in it.
 app.get('/',customLogger, (req, res) => {
@@ -41,26 +42,26 @@ app.post('/', (req, res) => {
 
 
 //THROUGH this chaining we can reduce the code redundancy.
-router
-    .route('/post')
-    .get((req,res)=>{
-            console.log("This is a GET request");
-            res.send({message : "Router OK"})
-    })
-    .post((req,res)=>{
-        res.send({message : "Router OK"})
-    });  
+// router
+//     .route('/post')
+//     .get((req,res)=>{
+//             console.log("This is a GET request");
+//             res.send({message : "Router OK"})
+//     })
+//     .post((req,res)=>{
+//         res.send({message : "Router OK"})
+//     });  
 
-router
-    .route('/post/:id')
-    .get((req,res)=>{
-        console.log("This is a GET request and the id is ",req.params);
-        res.send({message : "Router OK"})
-    })
-    .post((req,res)=>{
-        console.log("This is a POST request and the id is ",req.params);
-        res.send({message : "Router OK"})
-    });     
+// router
+//     .route('/post/:id')
+//     .get((req,res)=>{
+//         console.log("This is a GET request and the id is ",req.params);
+//         res.send({message : "Router OK"})
+//     })
+//     .post((req,res)=>{
+//         console.log("This is a POST request and the id is ",req.params);
+//         res.send({message : "Router OK"})
+//     });     
 
 
 export const start = () => {
