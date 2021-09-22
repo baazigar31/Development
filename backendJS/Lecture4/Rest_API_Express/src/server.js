@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
 import postRouter from "./post/post-router";
+import userRouter from "./user/user-router";
+import { connect } from "./util/database";
 
 const app = express();
 const router=express.Router();
@@ -18,6 +20,7 @@ const customLogger=(req,res,next)=>{
 }
 
 app.use('/api/post',postRouter);
+app.use('/api/user',userRouter);
 
 // Her to pass more than one middleware we can pass array in it.
 app.get('/',customLogger, (req, res) => {
@@ -64,9 +67,10 @@ app.post('/', (req, res) => {
 //     });     
 
 
-export const start = () => {
-    app.listen(3000, () => {
-        console.log("Server started at 3000");
+export const start = async () => {
+        await connect();
+        app.listen(3000, () => {
+            console.log("Server started at 3000");
     });
 }
 
