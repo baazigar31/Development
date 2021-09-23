@@ -8,9 +8,9 @@ import { connect } from "./util/database";
 const app = express();
 const router=express.Router();
 
-// app.use(morgan('dev'));
-// app.use(json());
-// app.use(urlencoded({extended : true}));
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(urlencoded({extended : true}));
 
 
 //This is a custom middleware
