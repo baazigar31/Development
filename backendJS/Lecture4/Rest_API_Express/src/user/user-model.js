@@ -28,7 +28,7 @@ userSchema.methods.validatePassword=function(password){
     return new Promise((resolve,reject)=>{
         brcrypt.compare(password,passHash,(err,res)=>{
             if(err) return reject(err);
-            resolve(res);
+            resolve(res); 
         })
     })
 }

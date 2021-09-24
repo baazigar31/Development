@@ -44,9 +44,18 @@ export const getAll = model=> async(req,res)=>{
 
 export const createOne = model => async(req,res)=>{
     try{
-        const doc=await model.create(req.body);
-        console.log(doc);
-        res.status(201).json({data:doc});
+        const user= await model.findOne({email:req.body.email}).exec();
+        if(!user){
+            const doc=await model.create(req.body);
+             console.log(doc);
+             return res.status(201).json({data:doc});
+        }
+        else{
+            console.log("User already exist!!");
+            res.status(205).send("User already exist!!");
+        }
+        
+        
     }
     catch(e){
         console.error(e);

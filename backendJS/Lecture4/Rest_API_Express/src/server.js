@@ -5,6 +5,8 @@ import postRouter from "./post/post-router";
 import userRouter from "./user/user-router";
 import { connect } from "./util/database";
 import cors from "cors";
+import { register, protect, login } from "./util/authentication";
+
 
 const app = express();
 const router=express.Router();
@@ -20,9 +22,14 @@ const customLogger=(req,res,next)=>{
     console.log("Hi, Shubham How are you? ");
     next();
 }
-
+app.use('/api', protect);
 app.use('/api/post',postRouter);
 app.use('/api/user',userRouter);
+
+
+
+app.post('/signup', register);
+app.post('/signin', login);
 
 // Her to pass more than one middleware we can pass array in it.
 app.get('/',customLogger, (req, res) => {
